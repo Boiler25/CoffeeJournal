@@ -35,6 +35,11 @@ public class BrewSession
                 "Recipe id cannot be empty.",
                 nameof(recipeId));
 
+        if (brewedAt > DateTime.UtcNow)
+            throw new ArgumentException(
+                "The brewing date cannot be in the future.",
+                nameof(brewedAt));
+
         ValidateRating(sweetness, nameof(sweetness));
         ValidateRating(acidity, nameof(acidity));
         ValidateRating(bitterness, nameof(bitterness));

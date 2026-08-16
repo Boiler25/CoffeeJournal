@@ -33,6 +33,11 @@ public class CoffeeBag
                 "Weight must be greater than zero.",
                 nameof(weight));
 
+        if (roastDate != null && roastDate > purchaseDate)
+            throw new ArgumentException(
+                "Roast date cannot be less than purchase date.",
+                nameof(roastDate));
+
         Id = Guid.CreateVersion7();
 
         UserId = userId;
@@ -70,4 +75,49 @@ public class CoffeeBag
 
     public ICollection<BrewSession> BrewSessions { get; private set; }
         = new List<BrewSession>();
+
+    public void Open (DateOnly openedTime)
+    {
+        if (OpenedDate != null)
+        {
+            throw new InvalidOperationException(
+                "The coffee bag has already been opened.");
+        }
+        if (openedTime < PurchaseDate)
+        {
+            throw new ArgumentException(
+                "Opened date cannot be less than purchase date.",
+                nameof(openedTime));
+        }
+
+        OpenedDate = openedTime;
+    }
+
+    public void Finish(DateOnly finishedDate)
+    {
+        if (OpenedDate == null)
+        {
+            throw new InvalidOperationException(
+                "The coffee bag must be opened first.");
+        }
+
+        if (FinishedDate != null)
+        {
+            throw new InvalidOperationException(
+                "The coffee bag has already been finished.");
+        }
+
+        if (finishedDate < OpenedDate)
+        {
+            throw new ArgumentException(
+                "Finished date cannot be earlier than opened date.");
+        }
+
+        FinishedDate = finishedDate;
+    }
+
+    public void MakeNotes(string? notes)
+    {
+        Notes = notes?.Trim();
+    }
 }
