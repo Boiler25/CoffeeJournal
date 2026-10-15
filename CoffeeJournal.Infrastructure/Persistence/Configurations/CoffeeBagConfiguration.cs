@@ -7,47 +7,49 @@ namespace CoffeeJournal.Infrastructure.Persistence.Configurations;
 public class CoffeeBagConfiguration
     : IEntityTypeConfiguration<CoffeeBag>
 {
-    public void Configure(
-        EntityTypeBuilder<CoffeeBag> builder)
+    public void Configure(EntityTypeBuilder<CoffeeBag> builder)
     {
         builder.ToTable("coffee_bags");
 
-        builder.HasKey(x => x.Id);
+        builder.HasKey(coffeeBag => coffeeBag.Id);
 
-        builder.Property(x => x.Id)
+        builder.Property(coffeeBag => coffeeBag.UserId)
             .IsRequired();
 
-        builder.Property(x => x.UserId)
+        builder.Property(coffeeBag => coffeeBag.CoffeeBeanId)
             .IsRequired();
 
-        builder.Property(x => x.CoffeeBeanId)
+        builder.Property(coffeeBag => coffeeBag.Weight)
             .IsRequired();
 
-        builder.Property(x => x.Weight)
+        builder.Property(coffeeBag => coffeeBag.PurchaseDate)
             .IsRequired();
 
-        builder.Property(x => x.PurchaseDate)
-            .IsRequired();
+        builder.Property(coffeeBag => coffeeBag.RoastDate)
+            .IsRequired(false);
 
-        builder.Property(x => x.RoastDate);
+        builder.Property(coffeeBag => coffeeBag.OpenedDate)
+            .IsRequired(false);
 
-        builder.Property(x => x.OpenedDate);
+        builder.Property(coffeeBag => coffeeBag.FinishedDate)
+            .IsRequired(false);
 
-        builder.Property(x => x.FinishedDate);
-
-        builder.Property(x => x.Notes)
+        builder.Property(coffeeBag => coffeeBag.Notes)
             .HasMaxLength(1000);
 
-        builder.HasOne(x => x.User)
-            .WithMany(x => x.CoffeeBags)
-            .HasForeignKey(x => x.UserId);
+        builder.HasOne(coffeeBag => coffeeBag.User)
+            .WithMany(user => user.CoffeeBags)
+            .HasForeignKey(coffeeBag => coffeeBag.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasOne(x => x.CoffeeBean)
+        builder.HasOne(coffeeBag => coffeeBag.CoffeeBean)
             .WithMany()
-            .HasForeignKey(x => x.CoffeeBeanId);
+            .HasForeignKey(coffeeBag => coffeeBag.CoffeeBeanId)
+            .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasMany(x => x.BrewSessions)
-            .WithOne(x => x.CoffeeBag)
-            .HasForeignKey(x => x.CoffeeBagId);
+        builder.HasMany(coffeeBag => coffeeBag.BrewSessions)
+            .WithOne(session => session.CoffeeBag)
+            .HasForeignKey(session => session.CoffeeBagId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
