@@ -11,6 +11,14 @@ public class CoffeeJournalDbContext : DbContext
     {
     }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.ApplyConfigurationsFromAssembly(
+            typeof(CoffeeJournalDbContext).Assembly);
+    }
+
     public DbSet<User> Users => Set<User>();
 
     public DbSet<Roaster> Roasters => Set<Roaster>();
