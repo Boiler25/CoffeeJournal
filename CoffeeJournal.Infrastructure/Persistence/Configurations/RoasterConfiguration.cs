@@ -8,6 +8,8 @@ public class RoasterConfiguration : IEntityTypeConfiguration<Roaster>
 {
     public void Configure(EntityTypeBuilder<Roaster> builder)
     {
+        builder.ToTable("roasters");
+
         builder.HasKey(roaster => roaster.Id);
 
         builder.Property(roaster => roaster.Name)

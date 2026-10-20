@@ -1,4 +1,5 @@
-﻿using CoffeeJournal.Domain.Entities;
+﻿
+using CoffeeJournal.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -22,25 +23,5 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.HasIndex(user => user.Email)
             .IsUnique();
-
-        builder.HasMany(user => user.CoffeeBags)
-            .WithOne(coffeeBag => coffeeBag.User)
-            .HasForeignKey(coffeeBag => coffeeBag.UserId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasMany(user => user.Recipes)
-            .WithOne(recipe => recipe.User)
-            .HasForeignKey(recipe => recipe.UserId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasMany(user => user.Grinders)
-            .WithOne(grinder => grinder.User)
-            .HasForeignKey(grinder => grinder.UserId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasMany(user => user.BrewSessions)
-            .WithOne(session => session.User)
-            .HasForeignKey(session => session.UserId)
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }

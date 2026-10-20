@@ -1,4 +1,5 @@
-﻿using CoffeeJournal.Domain.Entities;
+﻿
+using CoffeeJournal.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -9,6 +10,21 @@ public class BrewSessionConfiguration
 {
     public void Configure(EntityTypeBuilder<BrewSession> builder)
     {
+        builder.ToTable("brew_sessions", table =>
+        {
+            table.HasCheckConstraint(
+                "CK_brew_sessions_sweetness",
+                "\"Sweetness\" IS NULL OR \"Sweetness\" BETWEEN 1 AND 5");
+
+            table.HasCheckConstraint(
+                "CK_brew_sessions_acidity",
+                "\"Acidity\" IS NULL OR \"Acidity\" BETWEEN 1 AND 5");
+
+            table.HasCheckConstraint(
+                "CK_brew_sessions_bitterness",
+                "\"Bitterness\" IS NULL OR \"Bitterness\" BETWEEN 1 AND 5");
+        });
+
         builder.HasKey(session => session.Id);
 
         builder.Property(session => session.BrewedAt)
@@ -35,28 +51,13 @@ public class BrewSessionConfiguration
         builder.Property(session => session.NextTimeNotes)
             .HasMaxLength(2000);
 
-        builder.ToTable(table =>
-        {
-            table.HasCheckConstraint(
-                "CK_BrewSessions_Sweetness",
-                "\"Sweetness\" IS NULL OR \"Sweetness\" BETWEEN 1 AND 5");
-
-            table.HasCheckConstraint(
-                "CK_BrewSessions_Acidity",
-                "\"Acidity\" IS NULL OR \"Acidity\" BETWEEN 1 AND 5");
-
-            table.HasCheckConstraint(
-                "CK_BrewSessions_Bitterness",
-                "\"Bitterness\" IS NULL OR \"Bitterness\" BETWEEN 1 AND 5");
-        });
-
         builder.HasOne(session => session.User)
             .WithMany(user => user.BrewSessions)
             .HasForeignKey(session => session.UserId)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(session => session.CoffeeBag)
-            .WithMany()
+            .WithMany(coffeeBag => coffeeBag.BrewSessions)
             .HasForeignKey(session => session.CoffeeBagId)
             .OnDelete(DeleteBehavior.Restrict);
 
