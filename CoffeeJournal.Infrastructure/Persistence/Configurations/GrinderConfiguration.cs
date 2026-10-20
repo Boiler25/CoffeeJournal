@@ -8,6 +8,8 @@ public class GrinderConfiguration : IEntityTypeConfiguration<Grinder>
 {
     public void Configure(EntityTypeBuilder<Grinder> builder)
     {
+        builder.ToTable("grinders");
+
         builder.HasKey(grinder => grinder.Id);
 
         builder.Property(grinder => grinder.Name)

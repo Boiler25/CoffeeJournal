@@ -8,6 +8,8 @@ public class CoffeeBeanConfiguration : IEntityTypeConfiguration<CoffeeBean>
 {
     public void Configure(EntityTypeBuilder<CoffeeBean> builder)
     {
+        builder.ToTable("coffee_beans");
+
         builder.HasKey(coffeeBean => coffeeBean.Id);
 
         builder.Property(coffeeBean => coffeeBean.Name)

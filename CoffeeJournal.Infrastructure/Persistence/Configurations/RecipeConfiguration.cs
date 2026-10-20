@@ -35,14 +35,14 @@ public class RecipeConfiguration : IEntityTypeConfiguration<Recipe>
         builder.Property(recipe => recipe.Description)
             .HasMaxLength(2000);
 
-        builder.ToTable(table =>
+        builder.ToTable("recipes", table =>
         {
             table.HasCheckConstraint(
-                "CK_Recipes_CoffeeDose",
+                "CK_recipes_coffee_dose_positive",
                 "\"CoffeeDose\" > 0");
 
             table.HasCheckConstraint(
-                "CK_Recipes_WaterAmount",
+                "CK_recipes_water_amount_positive",
                 "\"WaterAmount\" > 0");
         });
 
