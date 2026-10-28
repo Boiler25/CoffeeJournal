@@ -24,7 +24,9 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.MapBrewSessionEndpoints();
+var endpointsBuilder = app.MapGroup("/api");
+
+EndpointsProvider.RegisterAppEndpoints(endpointsBuilder);
 
 if (app.Environment.IsDevelopment())
 {
