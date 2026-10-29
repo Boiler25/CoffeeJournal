@@ -5,7 +5,7 @@ public static class EndpointsProvider
     public static void RegisterAppEndpoints(
         RouteGroupBuilder endpointsBuilder)
     {
-        endpointsBuilder
-            .Register<CreateBrewSessionEndpoint>();
+        endpointsBuilder.Register<CreateBrewSessionEndpoint>();
+        endpointsBuilder.Register<GetBrewSessionsEndpoint>();
     }
 }

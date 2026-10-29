@@ -19,6 +19,7 @@ builder.Services.AddScoped<
     BrewSessionRepository>();
 
 builder.Services.AddScoped<CreateBrewSessionHandler>();
+builder.Services.AddScoped<GetBrewSessionsHandler>();
 
 builder.Services.AddSwaggerGen();
 

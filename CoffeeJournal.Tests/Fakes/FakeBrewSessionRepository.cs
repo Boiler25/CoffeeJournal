@@ -15,4 +15,12 @@ public sealed class FakeBrewSessionRepository : IBrewSessionRepository
 
         return Task.CompletedTask;
     }
+
+    public Task<IReadOnlyList<BrewSession>> GetAllAsync(
+        CancellationToken cancellationToken = default)
+    {
+        IReadOnlyList<BrewSession> sessions = Sessions;
+
+        return Task.FromResult(sessions);
+    }
 }
