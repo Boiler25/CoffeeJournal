@@ -19,12 +19,15 @@ builder.Services.AddScoped<
     BrewSessionRepository>();
 
 builder.Services.AddScoped<CreateBrewSessionHandler>();
+builder.Services.AddScoped<GetBrewSessionsHandler>();
 
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.MapBrewSessionEndpoints();
+var endpointsBuilder = app.MapGroup("/api");
+
+EndpointsProvider.RegisterAppEndpoints(endpointsBuilder);
 
 if (app.Environment.IsDevelopment())
 {

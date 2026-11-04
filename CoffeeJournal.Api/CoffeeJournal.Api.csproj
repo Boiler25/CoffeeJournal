@@ -21,4 +21,8 @@
     <ProjectReference Include="..\CoffeeJournal.Infrastructure\CoffeeJournal.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>

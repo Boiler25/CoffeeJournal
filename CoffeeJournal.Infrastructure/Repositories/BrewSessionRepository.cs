@@ -24,4 +24,13 @@ public sealed class BrewSessionRepository : IBrewSessionRepository
 
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
+
+    public async Task<IReadOnlyList<BrewSession>> GetAllAsync(
+    CancellationToken cancellationToken = default)
+    {
+        return await _dbContext.BrewSessions
+            .AsNoTracking()
+            .OrderByDescending(session => session.BrewedAt)
+            .ToListAsync(cancellationToken);
+    }
 }
