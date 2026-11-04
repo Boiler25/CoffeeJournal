@@ -2,7 +2,7 @@
 using CoffeeJournal.Domain.Entities;
 using CoffeeJournal.Tests.Fakes;
 
-namespace CoffeeJournal.Tests.UseCases.BrewSessions;
+namespace CoffeeJournal.Tests;
 
 public class GetBrewSessionsHandlerTests
 {
