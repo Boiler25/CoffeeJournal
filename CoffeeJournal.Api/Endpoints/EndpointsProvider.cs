@@ -7,5 +7,6 @@ public static class EndpointsProvider
     {
         endpointsBuilder.Register<CreateBrewSessionEndpoint>();
         endpointsBuilder.Register<GetBrewSessionsEndpoint>();
+        endpointsBuilder.Register<GetBrewSessionByIdEndpoint>();
     }
 }

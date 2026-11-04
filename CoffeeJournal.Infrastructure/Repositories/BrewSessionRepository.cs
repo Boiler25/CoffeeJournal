@@ -33,4 +33,15 @@ public sealed class BrewSessionRepository : IBrewSessionRepository
             .OrderByDescending(session => session.BrewedAt)
             .ToListAsync(cancellationToken);
     }
+
+    public async Task<BrewSession?> GetByIdAsync(
+    Guid id,
+    CancellationToken cancellationToken = default)
+    {
+        return await _dbContext.BrewSessions
+            .AsNoTracking()
+            .FirstOrDefaultAsync(
+                session => session.Id == id,
+                cancellationToken);
+    }
 }
