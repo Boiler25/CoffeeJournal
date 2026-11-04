@@ -1,7 +1,6 @@
-﻿
-using CoffeeJournal.Domain.Entities;
+﻿using CoffeeJournal.Domain.Entities;
 
-namespace CoffeeJournal.Tests.Domain;
+namespace CoffeeJournal.Tests;
 
 public class BrewSessionTests
 {

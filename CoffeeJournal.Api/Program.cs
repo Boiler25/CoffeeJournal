@@ -1,6 +1,7 @@
 using CoffeeJournal.Api.Endpoints;
 using CoffeeJournal.Application.Abstractions;
 using CoffeeJournal.Application.UseCases.BrewSessions;
+using CoffeeJournal.Application.UseCases.Roasters;
 using CoffeeJournal.Infrastructure.Persistence;
 using CoffeeJournal.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,13 @@ builder.Services.AddScoped<
 builder.Services.AddScoped<CreateBrewSessionHandler>();
 builder.Services.AddScoped<GetBrewSessionsHandler>();
 builder.Services.AddScoped<GetBrewSessionByIdHandler>();
+
+builder.Services.AddScoped<
+    IRoasterRepository, 
+    RoasterRepository>();
+
+builder.Services.AddScoped<CreateRoasterHandler>();
+builder.Services.AddScoped<GetRoastersHandler>();
 
 builder.Services.AddSwaggerGen();
 
