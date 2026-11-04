@@ -20,6 +20,7 @@ builder.Services.AddScoped<
 
 builder.Services.AddScoped<CreateBrewSessionHandler>();
 builder.Services.AddScoped<GetBrewSessionsHandler>();
+builder.Services.AddScoped<GetBrewSessionByIdHandler>();
 
 builder.Services.AddSwaggerGen();
 

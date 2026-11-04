@@ -23,4 +23,14 @@ public sealed class FakeBrewSessionRepository : IBrewSessionRepository
 
         return Task.FromResult(sessions);
     }
+
+    public Task<BrewSession?> GetByIdAsync(
+    Guid id,
+    CancellationToken cancellationToken = default)
+    {
+        var session = Sessions.FirstOrDefault(
+            session => session.Id == id);
+
+        return Task.FromResult(session);
+    }
 }

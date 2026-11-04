@@ -10,4 +10,8 @@ public interface IBrewSessionRepository
 
     Task<IReadOnlyList<BrewSession>> GetAllAsync(
         CancellationToken cancellationToken = default);
+
+    Task<BrewSession?> GetByIdAsync(
+    Guid id,
+    CancellationToken cancellationToken = default);
 }
